@@ -29,4 +29,12 @@ Created project using this command: `npx @nestjs/cli new services/api`
 
 postgresql - 5432
 
+npm run start
+  ↓
+Create DB if missing
+  ↓
+Run migrations (create tables if missing)
+  ↓
+Start NestJS
+
 ## Packages
