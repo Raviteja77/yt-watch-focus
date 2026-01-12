@@ -37,4 +37,10 @@ Run migrations (create tables if missing)
   ↓
 Start NestJS
 
-## Packages
+## Postgresql
+
+create .env file
+
+DATABASE_URL="postgresql://postgres:[password]@localhost:5432/ytfocus?schema=public"
+
+running npm run start should create database if it doesn't exists and run migrations
