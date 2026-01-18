@@ -2,42 +2,31 @@ import { Injectable } from "@nestjs/common";
 import { google, youtube_v3 } from "googleapis";
 
 @Injectable()
-export class YoutubeService {
+export class YoutubeDataService {
   private youtube: youtube_v3.Youtube;
 
-  private createClient(accessToken: string) {
-    const auth = new google.auth.OAuth2(
-      process.env.GOOGLE_CLIENT_ID,
-      process.env.GOOGLE_CLIENT_SECRET,
-    );
-
-    auth.setCredentials({ access_token: accessToken });
-
+  constructor() {
     this.youtube = google.youtube({
       version: "v3",
-      auth,
+      auth: process.env.YOUTUBE_API_KEY,
     });
   }
 
-  async getSubscriptions(accessToken: string) {
-    this.createClient(accessToken);
-
+  async getSubscriptions() {
     const response = await this.youtube.subscriptions.list({
       part: ["snippet"],
-      mine: true,
+      mine: false,
       maxResults: 50,
     });
 
     return response.data.items ?? [];
   }
 
-  async getLikedVideos(accessToken: string) {
-    this.createClient(accessToken);
-
+  async getLikedVideos() {
     const response = await this.youtube.videos.list({
       part: ["snippet", "contentDetails"],
       myRating: "like",
-      maxResults: 25,
+      maxResults: 50,
     });
 
     return response.data.items ?? [];
