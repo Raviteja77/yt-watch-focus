@@ -1,9 +1,9 @@
 import { Controller, Get, Req, UseGuards } from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
 import { YoutubeService } from "./youtube.service";
+import { FirebaseAuthGuard } from "../auth/firebase-auth.guard";
 
-@UseGuards(AuthGuard("jwt"))
 @Controller("youtube")
+@UseGuards(FirebaseAuthGuard)
 export class YoutubeController {
   constructor(private readonly youtubeService: YoutubeService) {}
 
